@@ -27,6 +27,39 @@ Looks like the UART pins I want are free.
 
 Looking at the schematic - the LEDs are powered from VBUS (5V), there is an IO expander powered from the 3v3, so that will compete for power with the fingerprint reader.
 
+### Rotary Encoder ###
+
+Not used one of these before (tended to just use potentiometers)
+
+https://www.adafruit.com/product/377
+
+One side has a 3 pin connector (ground and two coding pins) and the other side has two pins for a normally open switch.
+
+```
+Connect Trinket's ground to the rotary encoder's common pin.
+Connect Trinket's pin #0 to the rotary encoder's "A" signal pin.
+Connect Trinket's pin #2 to the rotary encoder's "B" signal pin.
+
+These encoder signals will be "active-low". Each of these signals is a switch inside the rotary encoder. Active-low means the other end of the switch is connected to ground, such that when the switch is "closed", the pin value will read low. We will be using the Trinket's internal pull-up resistors so when the switch is "open", the pin value will read high.
+```
+
+![Alt text](./readme_imgs/rotary_encoder.png)
+
+#### Adding a button ####
+```
+The button switch is connected to Trinket's pin #1. It is "active-high", meaning when the button is pressed, the pin will read as logic high. When the button is not pressed, the pin will read as logic low. (the built-in LED of the Trinket shares pin #1, the LED acts as a pull-down resistor)
+```
+
+#### Testing on the pico ####
+
+Used the code in RotaryEncoder\Demo1\code copy.py.
+No libraries needed copying in. rotaryio is native.
+
+Can detect +1 and -1 for clockwise and anticlockwise.
+
+Three wires onto 33, 32 and 31 (aGND, board.GP26, board.GP27)
+
+Very simple.
 
 ## 13th June 2022 ##
 
