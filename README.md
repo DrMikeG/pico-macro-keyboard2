@@ -1,5 +1,17 @@
 # pico-macro-keyboard2
 
+## 2nd July 2022 ##
+
+Successfully used the finger print scanner to enroll and recognise a fingerprint.
+
+(See EnrollTest01 code)
+```
+uart = busio.UART(tx=board.GP8, rx=board.GP9, baudrate=57600)
+finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+```
+
+
+
 ## 14th June 2022 ##
 After some late-night messing about last night with an old arduino uno, I managed to run an LED colour changing example for the R503 - which convinced me that it was 3.3V, it wasn't dead and it was soldered correctly.
 
@@ -44,6 +56,29 @@ These encoder signals will be "active-low". Each of these signals is a switch in
 ```
 
 ![Alt text](./readme_imgs/rotary_encoder.png)
+
+See \RotaryEncoder\Demo1\code copy.py
+
+```
+import board
+import rotaryio
+
+
+#ENCODER = rotaryio.IncrementalEncoder(board.A2, board.A3)
+ENCODER = rotaryio.IncrementalEncoder(board.GP26, board.GP27)
+
+
+# MAIN LOOP ----------------------------------------------------------------
+
+LAST_POSITION = ENCODER.position
+while True:
+    POSITION = ENCODER.position
+    if POSITION != LAST_POSITION:
+        MOVE = POSITION - LAST_POSITION
+        LAST_POSITION = POSITION
+        print("Move",MOVE)
+```
+
 
 #### Adding a button ####
 ```
